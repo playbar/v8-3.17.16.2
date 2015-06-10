@@ -112,14 +112,6 @@ Handle<Value> CloudAppConstructCallback(const Arguments& args)
     return Undefined();  
 }  
  
-Handle<Value> JS_CreateApp(const Arguments &args)
-{
-	CloudApp* cloudapp = NewCloudApp(args);
-	Handle<Object> object = args.This();
-	object->SetInternalField(0, MakeWeakCloudApp(cloudapp));
-	return object;
-}
-
 Handle<Value> JS_GetState(const Arguments& args) {  
     Handle<Object> self = args.Holder();  
   
@@ -184,27 +176,61 @@ Handle<Value> JS_Start(const Arguments& args) {
   
     return Undefined();  
 }  
+
+Handle<FunctionTemplate> CloudApp_Class()
+{
+	Handle<FunctionTemplate> cloudapp_class = FunctionTemplate::New(CloudAppConstructCallback);
+	cloudapp_class->SetClassName(String::New("CloudApp"));
+
+	Handle<ObjectTemplate> cloudapp_proto = cloudapp_class->PrototypeTemplate();
+	//这一步，完全可以使用cloudapp_inst->Set（....）  
+	//使用prototype更符合JS编程  
+	cloudapp_proto->Set(String::New("start"), FunctionTemplate::New(JS_Start));
+	cloudapp_proto->Set(String::New("state"), FunctionTemplate::New(JS_GetState));
+	cloudapp_proto->Set(String::New("appid"), FunctionTemplate::New(JS_GetAppId));
+	cloudapp_proto->Set(String::New("IsEqual"), FunctionTemplate::New(JS_IsEqual));
+	//******很重要！！！  
+	Handle<ObjectTemplate> cloudapp_inst = cloudapp_class->InstanceTemplate();
+	cloudapp_inst->SetInternalFieldCount(1);
+	return cloudapp_class;
+}
   
+Handle<Value> JS_CreateApp(const Arguments &args)
+{
+	int argc = 1;
+	Handle<Value> argv[] = { args[0] };
+	return CloudApp_Class()->GetFunction()->NewInstance(argc, argv);
+}
+
+
 void SetupCloudAppInterface(Handle<ObjectTemplate> global) 
 {  
-    Handle<FunctionTemplate> cloudapp_class = FunctionTemplate::New(CloudAppConstructCallback);  
-    cloudapp_class->SetClassName(String::New("CloudApp"));  
-	cloudapp_class->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
-  
-    Handle<ObjectTemplate> cloudapp_proto = cloudapp_class->PrototypeTemplate();  
-    //这一步，完全可以使用cloudapp_inst->Set（....）  
-    //使用prototype更符合JS编程  
-    cloudapp_proto->Set(String::New("start"),	FunctionTemplate::New(JS_Start));  
-    cloudapp_proto->Set(String::New("state"),	FunctionTemplate::New(JS_GetState));  
-    cloudapp_proto->Set(String::New("appid"),	FunctionTemplate::New(JS_GetAppId));  
-	cloudapp_proto->Set(String::New("IsEqual"), FunctionTemplate::New(JS_IsEqual));
-    //******很重要！！！  
-    Handle<ObjectTemplate> cloudapp_inst = cloudapp_class->InstanceTemplate();  
-    cloudapp_inst->SetInternalFieldCount(1);  
-      
-    //向JS世界注册一个函数，其本质就是向JS世界的global注册一个类。  
-    //所以，也是通过向global注入CloudApp类。  
-    global->Set(String::New("CloudApp"), cloudapp_class);  
+	Handle<FunctionTemplate> app_class = CloudApp_Class();
+	app_class->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
+	global->Set(String::New("CloudApp"), app_class);
+
+//	Handle<ObjectTemplate> clouapp = ObjectTemplate::New();
+//	clouapp->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
+//	global->Set(String::New("CloudApp"), clouapp );
+
+    //Handle<FunctionTemplate> cloudapp_class = FunctionTemplate::New(CloudAppConstructCallback);  
+ //   cloudapp_class->SetClassName(String::New("CloudApp"));  
+	//cloudapp_class->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
+ // 
+ //   Handle<ObjectTemplate> cloudapp_proto = cloudapp_class->PrototypeTemplate();  
+ //   //这一步，完全可以使用cloudapp_inst->Set（....）  
+ //   //使用prototype更符合JS编程  
+ //   cloudapp_proto->Set(String::New("start"),	FunctionTemplate::New(JS_Start));  
+ //   cloudapp_proto->Set(String::New("state"),	FunctionTemplate::New(JS_GetState));  
+ //   cloudapp_proto->Set(String::New("appid"),	FunctionTemplate::New(JS_GetAppId));  
+	//cloudapp_proto->Set(String::New("IsEqual"), FunctionTemplate::New(JS_IsEqual));
+ //   //******很重要！！！  
+ //   Handle<ObjectTemplate> cloudapp_inst = cloudapp_class->InstanceTemplate();  
+ //   cloudapp_inst->SetInternalFieldCount(1);  
+ //     
+ //   //向JS世界注册一个函数，其本质就是向JS世界的global注册一个类。  
+ //   //所以，也是通过向global注入CloudApp类。  
+  //  global->Set(String::New("CloudApp"), cloudapp_class);  
 }  
   
 void InitialnilizeInterface(Handle<ObjectTemplate> global)
@@ -214,7 +240,7 @@ void InitialnilizeInterface(Handle<ObjectTemplate> global)
 
 char *jsscritp =  "\
 var ca = CloudApp.CreateApp();\
-var caid = ca.getAppId();\
+var caid = ca.appid();\
 var app = new CloudApp( 10 ); \
 var app2 = new CloudApp( 20); \
 var app3 = new CloudApp( 30);\
