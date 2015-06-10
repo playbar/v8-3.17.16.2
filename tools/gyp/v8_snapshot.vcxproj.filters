@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="%24%28OutDir%29obj">
+      <UniqueIdentifier>{0b7c1519-165b-4ca7-a4b0-5d03178b4abd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%24%28OutDir%29obj\global_intermediate">
+      <UniqueIdentifier>{96ffbde8-3c09-4037-aa2f-0a3db623e4c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%24%28IntDir%29">
+      <UniqueIdentifier>{58b34d14-90d0-4450-9a67-885ff08b0e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%24%28OutDir%29">
+      <UniqueIdentifier>{820b52b2-6115-4258-bbd8-f587a13f139f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%24%28OutDir%29\_excluded_files">
+      <UniqueIdentifier>{ebea8363-cf91-4879-ad36-dd845df7a04a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="v8.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(OutDir)obj\global_intermediate\libraries.cc">
+      <Filter>%24%28OutDir%29obj\global_intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="$(OutDir)obj\global_intermediate\experimental-libraries.cc">
+      <Filter>%24%28OutDir%29obj\global_intermediate</Filter>
+    </ClCompile>
+    <ClCompile Include="$(IntDir)snapshot.cc">
+      <Filter>%24%28IntDir%29</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="$(OutDir)mksnapshot.exe">
+      <Filter>%24%28OutDir%29\_excluded_files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

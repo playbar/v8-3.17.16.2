@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{813d286f-07f0-4b31-a5fc-4925604f8b33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..">
+      <UniqueIdentifier>{131ca6a0-6234-4617-bf13-9266d167861b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\src">
+      <UniqueIdentifier>{623b47f6-7004-43fb-9fdb-25705a1fd5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\src\_excluded_files">
+      <UniqueIdentifier>{cd613d4a-c30b-44f0-bdb6-874880c92735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\tools">
+      <UniqueIdentifier>{9ddca162-6a7a-4c94-8a87-b14b92a52854}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\tools\_excluded_files">
+      <UniqueIdentifier>{9ec872ec-69d4-46af-93ab-1ef71374631b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="v8.gyp" />
+    <None Include="..\..\src\runtime.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\json.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\object-observe.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\math.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\messages.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\symbol.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\string.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\mirror-debugger.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\proxy.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\debug-debugger.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\date.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\collection.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\macros.py">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\regexp.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\array.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\uri.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\liveedit-debugger.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\typedarray.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\v8natives.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\src\apinatives.js">
+      <Filter>..\..\src\_excluded_files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\js2c.py">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

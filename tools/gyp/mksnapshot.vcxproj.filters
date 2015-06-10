@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="..">
+      <UniqueIdentifier>{da80db1b-96a5-45c7-acb4-a42baabe8914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..">
+      <UniqueIdentifier>{02450733-2568-4f95-9a68-8d3146191447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\src">
+      <UniqueIdentifier>{70b4e8ca-a582-4004-a318-35661ac5b26c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="v8.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\mksnapshot.cc">
+      <Filter>..\..\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

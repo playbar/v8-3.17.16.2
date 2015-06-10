@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{0552DB70-8D1E-0CF9-F0FD-0E75947BD2E6}</ProjectGuid>
+    <RootNamespace>preparser_lib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
+    <OutDir>..\..\build\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
+    <OutDir>..\..\build\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4355;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <ExceptionHandling />
+      <MinimalRebuild>false</MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;ENABLE_DEBUGGER_SUPPORT;V8_TARGET_ARCH_IA32;WIN32;DEBUG;ENABLE_DISASSEMBLER;V8_ENABLE_CHECKS;OBJECT_PRINT;VERIFY_HEAP;ENABLE_EXTRA_CHECKS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(IntDir)$(ProjectName)\vc80.pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;ENABLE_DEBUGGER_SUPPORT;V8_TARGET_ARCH_IA32;WIN32;DEBUG;ENABLE_DISASSEMBLER;V8_ENABLE_CHECKS;OBJECT_PRINT;VERIFY_HEAP;ENABLE_EXTRA_CHECKS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>$(OutDir)lib\$(ProjectName).lib</OutputFile>
+    </Lib>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib</AdditionalDependencies>
+      <FixedBaseAddress>false</FixedBaseAddress>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(OutDir)lib\$(TargetName).lib</ImportLibrary>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4355;4800;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <ExceptionHandling />
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MinimalRebuild>false</MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;ENABLE_DEBUGGER_SUPPORT;V8_TARGET_ARCH_IA32;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ProgramDataBaseFileName>$(IntDir)$(ProjectName)\vc80.pdb</ProgramDataBaseFileName>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>..\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;ENABLE_DEBUGGER_SUPPORT;V8_TARGET_ARCH_IA32;WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Lib>
+      <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+      <OutputFile>$(OutDir)lib\$(ProjectName).lib</OutputFile>
+    </Lib>
+    <Link>
+      <AdditionalDependencies>ws2_32.lib</AdditionalDependencies>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <FixedBaseAddress>false</FixedBaseAddress>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(OutDir)lib\$(TargetName).lib</ImportLibrary>
+      <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="v8.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\atomicops.h" />
+    <ClInclude Include="..\..\src\bignum.h" />
+    <ClInclude Include="..\..\src\list-inl.h" />
+    <ClInclude Include="..\..\src\once.h" />
+    <ClInclude Include="..\..\src\globals.h" />
+    <ClInclude Include="..\..\src\hashmap.h" />
+    <ClInclude Include="..\..\src\preparser.h" />
+    <ClInclude Include="..\..\src\dtoa.h" />
+    <ClInclude Include="..\..\src\checks.h" />
+    <ClInclude Include="..\..\src\list.h" />
+    <ClInclude Include="..\..\src\fixed-dtoa.h" />
+    <ClInclude Include="..\..\src\utils-inl.h" />
+    <ClInclude Include="..\..\src\strtod.h" />
+    <ClInclude Include="..\..\src\allocation.h" />
+    <ClInclude Include="..\..\src\utils.h" />
+    <ClInclude Include="..\..\src\unicode-inl.h" />
+    <ClInclude Include="..\..\src\char-predicates-inl.h" />
+    <ClInclude Include="..\..\src\unicode.h" />
+    <ClInclude Include="..\..\src\preparse-data-format.h" />
+    <ClInclude Include="..\..\src\char-predicates.h" />
+    <ClInclude Include="..\..\src\cached-powers.h" />
+    <ClInclude Include="..\..\src\scanner.h" />
+    <ClInclude Include="..\..\src\diy-fp.h" />
+    <ClInclude Include="..\..\src\conversions.h" />
+    <ClInclude Include="..\..\src\fast-dtoa.h" />
+    <ClInclude Include="..\..\src\conversions-inl.h" />
+    <ClInclude Include="..\..\src\double.h" />
+    <ClInclude Include="..\..\src\bignum-dtoa.h" />
+    <ClInclude Include="..\..\src\preparse-data.h" />
+    <ClInclude Include="..\..\src\token.h" />
+    <ClInclude Include="..\..\include\v8-preparser.h" />
+    <ClInclude Include="..\..\include\v8stdint.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\allocation.cc" />
+    <ClCompile Include="..\..\src\preparser.cc" />
+    <ClCompile Include="..\..\src\conversions.cc" />
+    <ClCompile Include="..\..\src\fast-dtoa.cc" />
+    <ClCompile Include="..\..\src\unicode.cc" />
+    <ClCompile Include="..\..\src\atomicops_internals_x86_gcc.cc" />
+    <ClCompile Include="..\..\src\cached-powers.cc" />
+    <ClCompile Include="..\..\src\preparser-api.cc" />
+    <ClCompile Include="..\..\src\token.cc" />
+    <ClCompile Include="..\..\src\diy-fp.cc" />
+    <ClCompile Include="..\..\src\fixed-dtoa.cc" />
+    <ClCompile Include="..\..\src\strtod.cc" />
+    <ClCompile Include="..\..\src\scanner.cc" />
+    <ClCompile Include="..\..\src\preparse-data.cc" />
+    <ClCompile Include="..\..\src\utils.cc" />
+    <ClCompile Include="..\..\src\bignum.cc" />
+    <ClCompile Include="..\..\src\once.cc" />
+    <ClCompile Include="..\..\src\dtoa.cc" />
+    <ClCompile Include="..\..\src\bignum-dtoa.cc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
