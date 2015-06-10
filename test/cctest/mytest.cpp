@@ -58,6 +58,15 @@ private:
     AppState state;  
     int appId;    
 };  
+
+class SkeyApp : public CloudApp
+{
+public:
+	SkeyApp(){ skeyid = 234; };
+	int getSkeyId() { return skeyid; }
+private:
+	int skeyid;
+};
   
 //向MakeWeak注册的callback.  
 void CloudAppWeakReferenceCallback(Persistent<Value> object, void * param)
@@ -111,6 +120,18 @@ Handle<Value> CloudAppConstructCallback(const Arguments& args)
     object->SetInternalField(0, MakeWeakCloudApp(cloudapp));  
     return Undefined();  
 }  
+
+Handle<Value> SkeyAppConstructCallback(const Arguments &args)
+{
+	if ( ! args.IsConstructCall( ))
+	{
+		return Undefined();
+	}
+	SkeyApp *skeyapp = new SkeyApp();
+	Handle<Object> object = args.This();
+	object->SetInternalField(0, MakeWeakCloudApp(skeyapp));
+	return Undefined();
+}
  
 Handle<Value> JS_GetState(const Arguments& args) {  
     Handle<Object> self = args.Holder();  
@@ -177,22 +198,51 @@ Handle<Value> JS_Start(const Arguments& args) {
     return Undefined();  
 }  
 
-Handle<FunctionTemplate> CloudApp_Class()
+Handle<Value>JS_SkeyID(const Arguments &args)
 {
-	Handle<FunctionTemplate> cloudapp_class = FunctionTemplate::New(CloudAppConstructCallback);
-	cloudapp_class->SetClassName(String::New("CloudApp"));
+	Handle<Object> self = args.Holder();
+	Local<External> wrap = Local<External>::Cast(self->GetInternalField(0));
+	void *ptr = wrap->Value();
+	SkeyApp * skeyApp = static_cast<SkeyApp*>(ptr);
+	int id = skeyApp->getSkeyId();
+	return Integer::New(id);
+}
 
+Handle<ObjectTemplate> ClouApp_Fun(Handle<FunctionTemplate> &cloudapp_class)
+{
 	Handle<ObjectTemplate> cloudapp_proto = cloudapp_class->PrototypeTemplate();
-	//这一步，完全可以使用cloudapp_inst->Set（....）  
-	//使用prototype更符合JS编程  
 	cloudapp_proto->Set(String::New("start"), FunctionTemplate::New(JS_Start));
 	cloudapp_proto->Set(String::New("state"), FunctionTemplate::New(JS_GetState));
 	cloudapp_proto->Set(String::New("appid"), FunctionTemplate::New(JS_GetAppId));
 	cloudapp_proto->Set(String::New("IsEqual"), FunctionTemplate::New(JS_IsEqual));
-	//******很重要！！！  
+	return cloudapp_proto;
+}
+
+Handle<FunctionTemplate> CloudApp_Class()
+{
+	Handle<FunctionTemplate> cloudapp_class = FunctionTemplate::New(CloudAppConstructCallback);
+	cloudapp_class->SetClassName(String::New("CloudApp"));
+	ClouApp_Fun(cloudapp_class);
 	Handle<ObjectTemplate> cloudapp_inst = cloudapp_class->InstanceTemplate();
 	cloudapp_inst->SetInternalFieldCount(1);
 	return cloudapp_class;
+}
+
+Handle<ObjectTemplate> SkeyApp_Fun(Handle<FunctionTemplate> &skeyapp_class)
+{
+	Handle<ObjectTemplate> skeyapp_proto = skeyapp_class->PrototypeTemplate();
+	skeyapp_proto->Set(String::New("skeyid"), FunctionTemplate::New(JS_SkeyID));
+	return skeyapp_proto;
+}
+Handle<FunctionTemplate> SkeyApp_Class()
+{
+	Handle<FunctionTemplate> skeyapp_class = FunctionTemplate::New(SkeyAppConstructCallback);
+	skeyapp_class->SetClassName(String::New("SkeyApp"));
+	ClouApp_Fun(skeyapp_class);
+	SkeyApp_Fun(skeyapp_class);
+	Handle<ObjectTemplate> skeyapp_inst = skeyapp_class->InstanceTemplate();
+	skeyapp_inst->SetInternalFieldCount(1);
+	return skeyapp_class;
 }
   
 Handle<Value> JS_CreateApp(const Arguments &args)
@@ -209,28 +259,8 @@ void SetupCloudAppInterface(Handle<ObjectTemplate> global)
 	app_class->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
 	global->Set(String::New("CloudApp"), app_class);
 
-//	Handle<ObjectTemplate> clouapp = ObjectTemplate::New();
-//	clouapp->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
-//	global->Set(String::New("CloudApp"), clouapp );
-
-    //Handle<FunctionTemplate> cloudapp_class = FunctionTemplate::New(CloudAppConstructCallback);  
- //   cloudapp_class->SetClassName(String::New("CloudApp"));  
-	//cloudapp_class->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
- // 
- //   Handle<ObjectTemplate> cloudapp_proto = cloudapp_class->PrototypeTemplate();  
- //   //这一步，完全可以使用cloudapp_inst->Set（....）  
- //   //使用prototype更符合JS编程  
- //   cloudapp_proto->Set(String::New("start"),	FunctionTemplate::New(JS_Start));  
- //   cloudapp_proto->Set(String::New("state"),	FunctionTemplate::New(JS_GetState));  
- //   cloudapp_proto->Set(String::New("appid"),	FunctionTemplate::New(JS_GetAppId));  
-	//cloudapp_proto->Set(String::New("IsEqual"), FunctionTemplate::New(JS_IsEqual));
- //   //******很重要！！！  
- //   Handle<ObjectTemplate> cloudapp_inst = cloudapp_class->InstanceTemplate();  
- //   cloudapp_inst->SetInternalFieldCount(1);  
- //     
- //   //向JS世界注册一个函数，其本质就是向JS世界的global注册一个类。  
- //   //所以，也是通过向global注入CloudApp类。  
-  //  global->Set(String::New("CloudApp"), cloudapp_class);  
+	Handle<FunctionTemplate> skeyapp_class = SkeyApp_Class();
+	global->Set(String::New("SkeyApp"), skeyapp_class );
 }  
   
 void InitialnilizeInterface(Handle<ObjectTemplate> global)
@@ -239,6 +269,9 @@ void InitialnilizeInterface(Handle<ObjectTemplate> global)
 }  
 
 char *jsscritp =  "\
+var skey = new SkeyApp();\
+var skeyid = skey.skeyid();\
+var appid = skey.appid();\
 var ca = CloudApp.CreateApp();\
 var caid = ca.appid();\
 var app = new CloudApp( 10 ); \
