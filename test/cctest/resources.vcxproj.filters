@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="_excluded_files">
+      <UniqueIdentifier>{c2c6995b-8110-4442-b0aa-a4780668995f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..">
+      <UniqueIdentifier>{f5aad13d-569d-4d87-bb93-19356b727fb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..">
+      <UniqueIdentifier>{6c2f0ea1-aabc-42c9-8635-2e151d4b3c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\tools">
+      <UniqueIdentifier>{5d1a8ed4-59fd-49cf-b9eb-89f6c220c7d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="..\..\tools\_excluded_files">
+      <UniqueIdentifier>{a2bbec6b-1e2e-4808-afbe-8c791886535c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cctest.gyp" />
+    <None Include="log-eq-of-logging-and-traversal.js">
+      <Filter>_excluded_files</Filter>
+    </None>
+    <None Include="..\..\tools\csvparser.js">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\tools\consarray.js">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\tools\codemap.js">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\tools\profile_view.js">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\tools\logreader.js">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\tools\profile.js">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </None>
+    <None Include="..\..\tools\splaytree.js">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\tools\js2c.py">
+      <Filter>..\..\tools\_excluded_files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>
