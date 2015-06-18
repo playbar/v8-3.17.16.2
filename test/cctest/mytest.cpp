@@ -288,9 +288,7 @@ void InitialnilizeInterface(Handle<ObjectTemplate> global)
 }  
 
 char *jsscritp =  "\
-CloudApp.TestId = 24;\
-var iid = 25;\
-var app = new CloudApp( iid ); \
+var app = new CloudApp( 4 ); \
 app.start();\
 app = null"	\
 ;
