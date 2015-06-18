@@ -98,9 +98,10 @@ Handle<External> MakeWeakCloudApp(void* parameter)
 CloudApp* NewCloudApp(const Arguments& args)
 {  
     CloudApp* cloudApp = NULL;  
+	int id = args[0]->Int32Value();
     if (args.Length() == 1) 
 	{  
-        cloudApp = new CloudApp(args[0]->ToInt32()->Value());   
+        cloudApp = new CloudApp(id);   
     } 
 	else
 	{  
@@ -185,6 +186,12 @@ Handle<Value> JS_IsEqual(const Arguments &args)
 	//CloudApp *p = (CloudApp*)args[0]->Int32Value();
 	return Boolean::New(false);
 }
+
+Handle<Value> JS_Add(const Arguments &args)
+{
+	Handle<Object> self = args.Holder();
+	return Undefined();
+}
   
 Handle<Value> JS_Start(const Arguments& args) {  
     Handle<Object> self = args.Holder();  
@@ -208,6 +215,13 @@ Handle<Value>JS_SkeyID(const Arguments &args)
 	return Integer::New(id);
 }
 
+Handle<Value> JS_TestID(const Arguments &args)
+{
+	int iid = 23;
+	return Integer::New(iid);
+}
+
+
 Handle<ObjectTemplate> ClouApp_Fun(Handle<FunctionTemplate> &cloudapp_class)
 {
 	Handle<ObjectTemplate> cloudapp_proto = cloudapp_class->PrototypeTemplate();
@@ -215,6 +229,7 @@ Handle<ObjectTemplate> ClouApp_Fun(Handle<FunctionTemplate> &cloudapp_class)
 	cloudapp_proto->Set(String::New("state"), FunctionTemplate::New(JS_GetState));
 	cloudapp_proto->Set(String::New("appid"), FunctionTemplate::New(JS_GetAppId));
 	cloudapp_proto->Set(String::New("IsEqual"), FunctionTemplate::New(JS_IsEqual));
+	cloudapp_proto->Set(String::New("add"), FunctionTemplate::New(JS_Add));	
 	return cloudapp_proto;
 }
 
@@ -253,10 +268,14 @@ Handle<Value> JS_CreateApp(const Arguments &args)
 }
 
 
+
 void SetupCloudAppInterface(Handle<ObjectTemplate> global) 
 {  
 	Handle<FunctionTemplate> app_class = CloudApp_Class();
 	app_class->Set(String::New("CreateApp"), FunctionTemplate::New(JS_CreateApp));
+	app_class->ReadOnlyPrototype();
+	app_class->Set(String::New("TestId"), Number::New(23));
+
 	global->Set(String::New("CloudApp"), app_class);
 
 	Handle<FunctionTemplate> skeyapp_class = SkeyApp_Class();
@@ -269,26 +288,38 @@ void InitialnilizeInterface(Handle<ObjectTemplate> global)
 }  
 
 char *jsscritp =  "\
-var skey = new SkeyApp();\
-var skeyid = skey.skeyid();\
-var appid = skey.appid();\
-var ca = CloudApp.CreateApp();\
-var caid = ca.appid();\
-var app = new CloudApp( 10 ); \
-var app2 = new CloudApp( 20); \
-var app3 = new CloudApp( 30);\
-var apparray = [app2, app3];\
-var arrint = [1, 2 ];\
-var bo = app.IsEqual(apparray);\
-{\
-	var te = new CloudApp(9); \
-	te = null; \
-}\
-var id = app.appid(); \
+CloudApp.TestId = 24;\
+var iid = 25;\
+var app = new CloudApp( iid ); \
 app.start();\
 app = null"	\
 ;
   
+
+//char *jsscritp =  "\
+//var skey = new SkeyApp();\
+//var iid = CloudApp.TestId;\
+//var app = new CloudApp( iid ); \
+//var skeyid = skey.skeyid();\
+//var appid = skey.appid();\
+//var ca = CloudApp.CreateApp();\
+//var caid = ca.appid();\
+//var app2 = new CloudApp( 20); \
+//var app3 = new CloudApp( 30);\
+//app3.add(app2);\
+//var id1 = app2.appid();\
+//var apparray = [app2, app3];\
+//var arrint = [1, 2 ];\
+//var bo = app.IsEqual(apparray);\
+//{\
+//	var te = new CloudApp(9); \
+//	te = null; \
+//}\
+//var id = app.appid(); \
+//app.start();\
+//app = null"	\
+//;
+//  
 void LoadJsAndRun()
 {  
 	Handle<String> source = String::New( jsscritp );  
@@ -298,8 +329,8 @@ void LoadJsAndRun()
     //printValue(result);  
 }  
   
-void Regist2JsContext(Handle<ObjectTemplate>& object  
-                            , Persistent<Context>& context) {  
+void Regist2JsContext(Handle<ObjectTemplate>& object, Persistent<Context>& context)
+{  
     context = Context::New(NULL, object);  
 }  
  
