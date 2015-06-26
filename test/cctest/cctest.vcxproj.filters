@@ -76,8 +76,12 @@
       <Filter>%24%28OutDir%29obj\global_intermediate</Filter>
     </ClCompile>
     <ClCompile Include="mytest.cpp" />
+    <ClCompile Include="CloudApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cctest.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CloudApp.h" />
   </ItemGroup>
 </Project>

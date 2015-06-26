@@ -2,72 +2,11 @@
 
 
 #include "v8.h"  
+using namespace v8;
+
 #include "utils.h"  
-  
-#include <iostream>  
-#include <string>  
-  
-using namespace std;  
-  
-using namespace v8;  
-  
-enum AppState
-{  
-    IDEL = 0,  
-    LOADED,  
-    STOP  
-};  
-  
-class CloudApp 
-{  
-public:  
-	CloudApp* CreateApp();
-	CloudApp()
-	{
-		state = IDEL;
-		appId = 0;
-	}
-    CloudApp(int id)
-	{   
-        state = IDEL;  
-        appId = id;  
-    }  
-	~CloudApp()
-	{
-		int i = 0;
-	}
-
-    void start()
-	{  
-        cout << "CloudApp been Loaded id = " << appId << endl;  
-        state = LOADED;  
-    };  
-	bool IsEqual(CloudApp * app)
-	{
-		if ( app->appId == this->appId )
-		{
-			return true;
-		}
-		return false;
-	}
-  
-    int getState() { return state;}  
-    int getAppId() { return appId;}
-      
-private:  
-    AppState state;  
-    int appId;    
-};  
-
-class SkeyApp : public CloudApp
-{
-public:
-	SkeyApp(){ skeyid = 234; };
-	int getSkeyId() { return skeyid; }
-private:
-	int skeyid;
-};
-  
+#include "CloudApp.h"
+   
 // This function returns a new array with three elements, x, y, and z.
 Handle<Array> NewPointArray(int x, int y, int z) 
 {
@@ -310,37 +249,6 @@ void InitialnilizeInterface(Handle<ObjectTemplate> global)
     SetupCloudAppInterface(global);  
 }  
 
-char *jsscritp =  "\
-var app = new CloudApp( 4 ); \
-app.start();\
-app = null"	\
-;
-  
-
-//char *jsscritp =  "\
-//var skey = new SkeyApp();\
-//var iid = CloudApp.TestId;\
-//var app = new CloudApp( iid ); \
-//var skeyid = skey.skeyid();\
-//var appid = skey.appid();\
-//var ca = CloudApp.CreateApp();\
-//var caid = ca.appid();\
-//var app2 = new CloudApp( 20); \
-//var app3 = new CloudApp( 30);\
-//app3.add(app2);\
-//var id1 = app2.appid();\
-//var apparray = [app2, app3];\
-//var arrint = [1, 2 ];\
-//var bo = app.IsEqual(apparray);\
-//{\
-//	var te = new CloudApp(9); \
-//	te = null; \
-//}\
-//var id = app.appid(); \
-//app.start();\
-//app = null"	\
-//;
-//  
 void LoadJsAndRun()
 {  
 	Handle<String> source = String::New( jsscritp );  

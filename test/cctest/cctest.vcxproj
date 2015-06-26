@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CloudApp.cpp" />
     <ClCompile Include="mytest.cpp" />
     <ClCompile Include="test-circular-queue.cc" />
     <ClCompile Include="test-dataflow.cc" />
@@ -216,6 +217,9 @@
       <Project>{0b4547c7-c72d-0bd0-fdaa-3c469a444bcd}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CloudApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
