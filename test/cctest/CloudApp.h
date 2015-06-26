@@ -1,6 +1,8 @@
 #ifndef __CLOUDAPP_H__
 #define __CLOUDAPP_H__
 
+#include "v8.h"  
+using namespace v8;
 #include <iostream>  
 #include <string>  
 using namespace std;
@@ -63,6 +65,8 @@ private:
 };
 
 extern char *jsscritp;
+
+void SetupCloudAppInterface(Handle<ObjectTemplate> global);
 
 #endif
 
